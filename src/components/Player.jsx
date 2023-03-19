@@ -20,6 +20,11 @@ const Player = () => {
                 setCurrentVideo(data[0].link)
                 setSelectedVideo(data[0].title)
             })
+            .catch((error) => {
+                setVideoData(vidData)
+                setCurrentVideo(vidData[0].link)
+                setSelectedVideo(vidData[0].title)
+            })
     }, [])
     useEffect(() => {
         let vidObj = videoData.find(({ title }) => title === selectedVideo)
