@@ -12,17 +12,17 @@ const Player = () => {
     const vidRef = useRef(null)
     // const [hoverRef, isHovered] = useHover(null)
     useEffect(() => {
-    //     fetch('http://localhost:8080/post')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             console.log(data)
-    //             setVideoData(data)
-    //             setCurrentVideo(data[0].link)
-    //             setSelectedVideo(data[0].title)
-    //         })
-        setVideoData(vidData)
-        setCurrentVideo(vidData[0].link)
-        setSelectedVideo(vidData[0].title)
+        fetch('http://localhost:8080/post')
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                setVideoData(data)
+                setCurrentVideo(data[0].link)
+                setSelectedVideo(data[0].title)
+            })
+        // setVideoData(vidData)
+        // setCurrentVideo(vidData[0].link)
+        // setSelectedVideo(vidData[0].title)
     }, [])
     useEffect(() => {
         let vidObj = videoData.find(({ title }) => title === selectedVideo)
