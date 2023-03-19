@@ -1,6 +1,7 @@
 {
     "name": "video-player",
     "version": "0.1.0",
+    "homepage": "https://dukedward.github.io/player",
     "private": true,
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.3.0",
