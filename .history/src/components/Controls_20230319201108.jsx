@@ -33,7 +33,7 @@ const Controls = ({ vidRef, downloadFile }) => {
       </div>
       <div className="extra-controls">
         <button className="btn">
-            <FaDownload onClick={handleDL} />
+            <FaDownload onClick={} />
         </button>
       </div>
     </div>

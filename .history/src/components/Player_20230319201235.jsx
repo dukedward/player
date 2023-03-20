@@ -39,8 +39,7 @@ const Player = () => {
         let vidObj = videoData.find(({ title }) => title === selectedVideo)
         console.log(vidObj);
         const url = vidObj.link
-        const fileName = url.slice(url.lastIndexOf('/')+1,url.length)
-        console.log(fileName);
+        const fileName = url.slice(url.lastIndexOf('/'),url.length)
         fetch(url, { method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' })
         .then( res => res.blob() )
         .then( res => {

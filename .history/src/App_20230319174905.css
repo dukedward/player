@@ -214,11 +214,6 @@ span, small {
     color: #fff;
 }
 
-.control-container {
-    display: flex;
-    flex-direction: column;
-}
-
 .controls .btn {
     margin: 1em;
 }

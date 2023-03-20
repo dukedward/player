@@ -37,10 +37,8 @@ const Player = () => {
     }
     const downloadFile = () => {
         let vidObj = videoData.find(({ title }) => title === selectedVideo)
-        console.log(vidObj);
         const url = vidObj.link
-        const fileName = url.slice(url.lastIndexOf('/')+1,url.length)
-        console.log(fileName);
+        const fileName = url.slice(url.lastIndexOf('/'),url.length)
         fetch(url, { method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' })
         .then( res => res.blob() )
         .then( res => {
@@ -61,7 +59,7 @@ const Player = () => {
                     loadVideo={loadVideo}
                 />
             )}
-            <Controls vidRef={vidRef} downloadFile={downloadFile} />
+            <Controls vidRef={vidRef} selectedVideo={downloadFile()} />
             {/* <Controls className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
         </div>
     )

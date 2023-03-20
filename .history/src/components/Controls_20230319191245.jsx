@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FaBackward, FaForward, FaPlay, FaPause, FaDownload } from "react-icons/fa";
+import { FaBackward, FaForward, FaPlay, FaPause } from "react-icons/fa";
 
-const Controls = ({ vidRef, downloadFile }) => {
+const Controls = ({ vidRef }) => {
   const [isPlaying, setIsPlayin] = useState(false);
 
   const playVideo = () => {
@@ -14,10 +14,6 @@ const Controls = ({ vidRef, downloadFile }) => {
     }
   };
 
-  const handleDL = () => {
-    downloadFile()
-  }
-
   return (
     <div className="control-container">
       <div className="controls">
@@ -29,11 +25,6 @@ const Controls = ({ vidRef, downloadFile }) => {
         </button>
         <button className="btn">
           <FaForward />
-        </button>
-      </div>
-      <div className="extra-controls">
-        <button className="btn">
-            <FaDownload onClick={handleDL} />
         </button>
       </div>
     </div>
