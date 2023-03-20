@@ -3,6 +3,8 @@ import Controls from './Controls'
 import Dropdown from './Dropdown'
 import Video from './Video'
 import { vidData } from '../data/dummy'
+import axios from 'axios'
+import fileDownload from 'js-file-download'
 // import { useHover } from '../hooks/Hooks'
 
 const Player = () => {
@@ -12,14 +14,14 @@ const Player = () => {
     const vidRef = useRef(null)
     // const [hoverRef, isHovered] = useHover(null)
     useEffect(() => {
-    //     fetch('http://localhost:8080/post')
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             console.log(data)
-    //             setVideoData(data)
-    //             setCurrentVideo(data[0].link)
-    //             setSelectedVideo(data[0].title)
-    //         })
+        //     fetch('http://localhost:8080/post')
+        //         .then((res) => res.json())
+        //         .then((data) => {
+        //             console.log(data)
+        //             setVideoData(data)
+        //             setCurrentVideo(data[0].link)
+        //             setSelectedVideo(data[0].title)
+        //         })
         setVideoData(vidData)
         setCurrentVideo(vidData[0].link)
         setSelectedVideo(vidData[0].title)
@@ -37,16 +39,15 @@ const Player = () => {
     }
     const downloadFile = () => {
         let vidObj = videoData.find(({ title }) => title === selectedVideo)
-        console.log(vidObj);
+        // console.log(vidObj)
         const url = vidObj.link
-        const fileName = url.slice(url.lastIndexOf('/')+1,url.length)
-        console.log(fileName);
-        fetch(url, { method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' })
-        .then( res => res.blob() )
-        .then( res => {
-            const href = URL.createObjectURL(res);
-            <a download={fileName} href={href} target='_blank' rel='noreferrer'/>
-        } )
+        const fileName = url.slice(url.lastIndexOf('/') + 1, url.length)
+        // console.log(fileName)
+        axios
+            .get(url, {
+                responseType: 'blob',
+            })
+            .then((res) => fileDownload(res.data, fileName))
     }
     return (
         <div className='player'>
