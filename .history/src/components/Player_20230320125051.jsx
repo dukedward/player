@@ -33,7 +33,7 @@ const Player = () => {
     vidRef.current.load();
   }, [selectedVideo, currentVideo, videoData]);
   const vidOptions = videoData.map((vid) => vid.title);
-  //  console.log(vidOptions);
+//   console.log(vidOptions);
   const loadVideo = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
     setCurrentVideo(vidObj.link);
@@ -62,12 +62,14 @@ const Player = () => {
           setSelected={setSelectedVideo}
           setCurrentVideo={setCurrentVideo}
           loadVideo={loadVideo}
+          vidRef={vidRef}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
         />
       )}
       <Controls
         options={vidOptions}
         vidRef={vidRef}
-        loadVideo={loadVideo}
         downloadFile={downloadFile}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}

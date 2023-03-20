@@ -16,6 +16,7 @@ const Controls = ({
   isPlaying,
   setIsPlaying,
   loadVideo,
+  switchVideo,
 }) => {
   const playVideo = () => {
     if (isPlaying === false) {
@@ -33,16 +34,12 @@ const Controls = ({
         prevVidID = options.length - 1
     }
     setSelected(options[prevVidID])
-    setIsPlaying(false)
+    loadVideo();
   };
 
   const nextVideo = () => {
-    let prevVidID = options.indexOf(selected) + 1
-    if (prevVidID > options.length - 1) {
-        prevVidID = 0
-    }
-    setSelected(options[prevVidID])
-    setIsPlaying(false)
+    loadVideo();
+    switchVideo();
   };
 
   const handleDL = () => {

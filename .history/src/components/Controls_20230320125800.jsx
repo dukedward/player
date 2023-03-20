@@ -15,7 +15,6 @@ const Controls = ({
   downloadFile,
   isPlaying,
   setIsPlaying,
-  loadVideo,
 }) => {
   const playVideo = () => {
     if (isPlaying === false) {
@@ -28,22 +27,14 @@ const Controls = ({
   };
 
   const prevVideo = () => {
-    let prevVidID = options.indexOf(selected) - 1
-    if (prevVidID < 0) {
-        prevVidID = options.length - 1
-    }
-    setSelected(options[prevVidID])
-    setIsPlaying(false)
-  };
+    loadVideo()
+    switchVideo()
+  }
 
   const nextVideo = () => {
-    let prevVidID = options.indexOf(selected) + 1
-    if (prevVidID > options.length - 1) {
-        prevVidID = 0
-    }
-    setSelected(options[prevVidID])
-    setIsPlaying(false)
-  };
+    loadVideo()
+    switchVideo()
+}
 
   const handleDL = () => {
     downloadFile();

@@ -34,10 +34,14 @@ const Player = () => {
   }, [selectedVideo, currentVideo, videoData]);
   const vidOptions = videoData.map((vid) => vid.title);
   //  console.log(vidOptions);
-  const loadVideo = () => {
+  const loadVideo = async() => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
     setCurrentVideo(vidObj.link);
-    vidRef.current.load();
+    await vidRef.current.load();
+    console.log(isPlaying);
+    if (isPlaying === true) {
+        vidRef.current.play();
+    }
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);

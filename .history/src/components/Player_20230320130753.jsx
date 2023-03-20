@@ -38,6 +38,9 @@ const Player = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
+    if (isPlaying === true) {
+        vidRef.current.play();
+    }
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);

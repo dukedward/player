@@ -38,6 +38,9 @@ const Player = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
+    if (isPlaying === true) {
+        vidRef.current.play();
+    }
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
@@ -62,12 +65,14 @@ const Player = () => {
           setSelected={setSelectedVideo}
           setCurrentVideo={setCurrentVideo}
           loadVideo={loadVideo}
+          switchVideo={switchVideo}
         />
       )}
       <Controls
         options={vidOptions}
         vidRef={vidRef}
         loadVideo={loadVideo}
+        switchVideo={switchVideo}
         downloadFile={downloadFile}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}

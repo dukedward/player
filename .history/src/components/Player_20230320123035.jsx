@@ -32,8 +32,12 @@ const Player = () => {
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
   }, [selectedVideo, currentVideo, videoData]);
-  const vidOptions = videoData.map((vid) => vid.title);
-  //  console.log(vidOptions);
+  const vidOptions = videoData.map((vid) => {
+    const options = {};
+    options.id = vid.tweet_id,
+    options.title = vid.title
+  });
+  console.log(vidOptions);
   const loadVideo = () => {
     let vidObj = videoData.find(({ title }) => title === selectedVideo);
     setCurrentVideo(vidObj.link);
@@ -62,17 +66,16 @@ const Player = () => {
           setSelected={setSelectedVideo}
           setCurrentVideo={setCurrentVideo}
           loadVideo={loadVideo}
+          vidRef={vidRef}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
         />
       )}
       <Controls
-        options={vidOptions}
         vidRef={vidRef}
-        loadVideo={loadVideo}
         downloadFile={downloadFile}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        selected={selectedVideo}
-        setSelected={setSelectedVideo}
       />
       {/* <Controls className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
     </div>

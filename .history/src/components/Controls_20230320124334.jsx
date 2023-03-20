@@ -8,15 +8,13 @@ import {
 } from "react-icons/fa";
 
 const Controls = ({
-  options,
-  selected,
-  setSelected,
+  videoData,
   vidRef,
   downloadFile,
   isPlaying,
   setIsPlaying,
-  loadVideo,
 }) => {
+  let vidObj = videoData.find(({ title }) => title === selectedVideo);
   const playVideo = () => {
     if (isPlaying === false) {
       vidRef.current.play();
@@ -27,24 +25,6 @@ const Controls = ({
     }
   };
 
-  const prevVideo = () => {
-    let prevVidID = options.indexOf(selected) - 1
-    if (prevVidID < 0) {
-        prevVidID = options.length - 1
-    }
-    setSelected(options[prevVidID])
-    setIsPlaying(false)
-  };
-
-  const nextVideo = () => {
-    let prevVidID = options.indexOf(selected) + 1
-    if (prevVidID > options.length - 1) {
-        prevVidID = 0
-    }
-    setSelected(options[prevVidID])
-    setIsPlaying(false)
-  };
-
   const handleDL = () => {
     downloadFile();
   };
@@ -53,13 +33,13 @@ const Controls = ({
     <div className="control-container">
       <div className="controls">
         <button className="btn">
-          <FaBackward onClick={prevVideo} />
+          <FaBackward />
         </button>
         <button className="btn btn-main" onClick={playVideo}>
           {isPlaying ? <FaPause /> : <FaPlay />}
         </button>
         <button className="btn">
-          <FaForward onClick={nextVideo} />
+          <FaForward />
         </button>
       </div>
       <div className="extra-controls">
