@@ -33,59 +33,49 @@ const Player = () => {
       .then((res) => fileDownload(res.data, fileName));
   };
   useEffect(() => {
-    const userUrl = `https://tweetgrab.herokuapp.com/api/user?username=${username}`
     const url = `https://tweetgrab.herokuapp.com/api/user/timeline?username=${username}`;
-    axios.get(userUrl, {
-        responseType: "json"
-    }).then((res) => {
-        if (res.status === 200){
-            axios
-              .get(url, {
-                responseType: "json",
-              })
-              .then((res) => {
-                let data;
-                let vids = [];
-                data = res.data;
-                data = data.filter((tweet) =>
-                  tweet.hasOwnProperty("extended_entities")
-                );
-                data = data.map((tweet) => tweet.extended_entities);
-                data = data.map((tweet) => tweet.media);
-                data.map((dataArr) =>
-                  dataArr.map((tweet) => {
-                    if (tweet.type === "video") {
-                      vids.push({
-                        size: tweet.sizes.large,
-                        id: tweet.id_str,
-                        type: tweet.type,
-                        link: tweet.video_info.variants,
-                      });
-                    } return tweet
-                  })
-                );
-                vids.forEach((vid) => {
-                  let vidObj = vid.link.find((x) => x.url.includes(vid.size.h));
-                  if (vidObj) {
-                    vid.link = vidObj.url;
-                  } else {
-                    vidObj = vid.link.find((x) => x.bitrate === 2176000);
-                    vid.link = vidObj.url;
-                  }
-                });
-                vids = vids.map(JSON.stringify)
-                vids = new Set(vids)
-                vids = Array.from(vids).map(JSON.parse)
-                setVideoData(vids);
-                setCurrentVideo(vids[0].link);
-                setSelectedVideo(vids[0].id);
-              }).catch ((error) => {
-                console.log(error.message)
-            })
-        }
-    }).catch ((error) => {
-        console.log(error.message)
-    })
+    axios
+      .get(url, {
+        responseType: "json",
+      })
+      .then((res) => {
+        let data;
+        let vids = [];
+        data = res.data;
+        data = data.filter((tweet) =>
+          tweet.hasOwnProperty("extended_entities")
+        );
+        data = data.map((tweet) => tweet.extended_entities);
+        data = data.map((tweet) => tweet.media);
+        data = data.map((dataArr) =>
+          dataArr.map((tweet) => {
+            if (tweet.type === "video") {
+              vids.push({
+                size: tweet.sizes.large,
+                id: tweet.id_str,
+                type: tweet.type,
+                link: tweet.video_info.variants,
+              });
+            } return tweet
+          })
+        );
+        vids.forEach((vid) => {
+          let vidObj = vid.link.find((x) => x.url.includes(vid.size.h));
+          if (vidObj) {
+            vid.link = vidObj.url;
+          } else {
+            vidObj = vid.link.find((x) => x.bitrate === 2176000);
+            vid.link = vidObj.url;
+          }
+        });
+        vids = vids.map(JSON.stringify)
+        vids = new Set(vids)
+        vids = Array.from(vids).map(JSON.parse)
+        console.log(vids);
+        setVideoData(vids);
+        setCurrentVideo(vids[0].link);
+        setSelectedVideo(vids[0].id);
+      });
   }, [username]);
   useEffect(() => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
