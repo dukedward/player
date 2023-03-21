@@ -100,8 +100,8 @@ const Player = () => {
   const vidOptions = videoData.map((vid) => vid.id);
   return (
     <div className="player">
-      <h1 className="video-title">{username}</h1>
       <SearchBox username={username} setUsername={setUsername} />
+      <h1 className="video-title">{username}</h1>
       {videoData && (
         <Dropdown
           options={vidOptions}
