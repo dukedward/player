@@ -38,6 +38,7 @@ const Player = () => {
     axios.get(userUrl, {
         responseType: "json"
     }).then((res) => {
+        console.log(res);
         if (res.status === 200){
             axios
               .get(url, {
@@ -52,7 +53,7 @@ const Player = () => {
                 );
                 data = data.map((tweet) => tweet.extended_entities);
                 data = data.map((tweet) => tweet.media);
-                data.map((dataArr) =>
+                data = data.map((dataArr) =>
                   dataArr.map((tweet) => {
                     if (tweet.type === "video") {
                       vids.push({
@@ -79,12 +80,8 @@ const Player = () => {
                 setVideoData(vids);
                 setCurrentVideo(vids[0].link);
                 setSelectedVideo(vids[0].id);
-              }).catch ((error) => {
-                console.log(error.message)
-            })
+              });
         }
-    }).catch ((error) => {
-        console.log(error.message)
     })
   }, [username]);
   useEffect(() => {

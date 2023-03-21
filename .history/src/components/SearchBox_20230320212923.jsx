@@ -11,6 +11,7 @@ const SearchBox = ({ setUsername }) => {
     return (
         <div  >
             <input type="text" id="search" name="search" placeholder='Search Username' onKeyDown={enterHandler} />
+            {/* <button onClick={}>Submit</button> */}
         </div>
     )
 }

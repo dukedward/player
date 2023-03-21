@@ -52,7 +52,7 @@ const Player = () => {
                 );
                 data = data.map((tweet) => tweet.extended_entities);
                 data = data.map((tweet) => tweet.media);
-                data.map((dataArr) =>
+                data = data.map((dataArr) =>
                   dataArr.map((tweet) => {
                     if (tweet.type === "video") {
                       vids.push({
