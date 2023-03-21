@@ -9,7 +9,7 @@ const Dropdown = ({ options, selected, setSelected, loadVideo }) => {
         loadVideo()
     }
     const dropdownList = options.map((option, i) => (
-        <li key={i} onClick={selectOption} id={i} >
+        <li key={i} onClick={selectOption} data-val={i} >
             {option}
         </li>
     ))

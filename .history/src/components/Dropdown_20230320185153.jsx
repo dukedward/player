@@ -4,7 +4,7 @@ import Select from './Select'
 const Dropdown = ({ options, selected, setSelected, loadVideo }) => {
     const [menuShow, setMenuShow] = useState(false)
     const selectOption = (e) => {
-        setSelected(e.target.innerText)
+        setSelected(e.target.id)
         setMenuShow(!menuShow)
         loadVideo()
     }

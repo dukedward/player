@@ -28,20 +28,21 @@ const Controls = ({
   };
 
   const prevVideo = () => {
-    let prevVidId = options.indexOf(selected) - 1
-    if (prevVidId < 0) {
-        prevVidId = options.length - 1
+    let prevVidID = options.indexOf(selected) - 1
+    if (prevVidID < 0) {
+        prevVidID = options.length - 1
     }
-    setSelected(options[prevVidId])
+    setSelected(options[prevVidID])
     setIsPlaying(false)
   };
 
   const nextVideo = () => {
-    let nextVidId = options.indexOf(selected) + 1
-    if (nextVidId > options.length - 1) {
-        nextVidId = 0
+    let prevVidID = options.indexOf(selected) + 1
+    console.log(prevVidID);
+    if (prevVidID > options.length - 1) {
+        prevVidID = 0
     }
-    setSelected(options[nextVidId])
+    setSelected(options[prevVidID])
     setIsPlaying(false)
   };
 

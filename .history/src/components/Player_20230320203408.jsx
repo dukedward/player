@@ -70,7 +70,6 @@ const Player = () => {
         });
         vids = vids.map(JSON.stringify)
         vids = new Set(vids)
-        vids = Array.from(vids).map(JSON.parse)
         console.log(vids);
         setVideoData(vids);
         setCurrentVideo(vids[0].link);

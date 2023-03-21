@@ -68,9 +68,13 @@ const Player = () => {
             vid.link = vidObj.url;
           }
         });
-        vids = vids.map(JSON.stringify)
-        vids = new Set(vids)
-        vids = Array.from(vids).map(JSON.parse)
+        vids = vids.filter(
+          (value, index, self) =>
+            index ===
+            self.findIndex(
+              (t) => t.place === value.place && t.name === value.name
+            )
+        );
         console.log(vids);
         setVideoData(vids);
         setCurrentVideo(vids[0].link);

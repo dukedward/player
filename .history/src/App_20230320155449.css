@@ -22,7 +22,6 @@ body {
 
 #search {
     background: #2a2f3b;
-    width: 100%;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -32,7 +31,6 @@ body {
     padding: 1em;
     cursor: pointer;
     transition: background .3s;
-    margin-bottom: 1em;
 }
 
 .video-container {

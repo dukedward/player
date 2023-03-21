@@ -39,42 +39,43 @@ const Player = () => {
         responseType: "json",
       })
       .then((res) => {
-        let data;
-        let vids = [];
-        data = res.data;
-        data = data.filter((tweet) =>
-          tweet.hasOwnProperty("extended_entities")
-        );
-        data = data.map((tweet) => tweet.extended_entities);
-        data = data.map((tweet) => tweet.media);
-        data = data.map((dataArr) =>
-          dataArr.map((tweet) => {
-            if (tweet.type === "video") {
-              vids.push({
-                size: tweet.sizes.large,
-                id: tweet.id_str,
-                type: tweet.type,
-                link: tweet.video_info.variants,
-              });
+        let data
+        let vidTemp = []
+        let vids = []
+        data = res.data 
+        data = data.filter(tweet => tweet.hasOwnProperty('extended_entities'))
+        data = data.map(tweet => tweet.extended_entities)
+        data = data.map(tweet => tweet.media)
+        data = data.map(dataArr => dataArr.map( tweet => { 
+            if (tweet.type === 'video') { 
+                vidTemp.push({
+                    "size": tweet.sizes.large ,
+                    "id": tweet.id_str,
+                    "type": tweet.type,
+                    "link": tweet.video_info.variants
+                })
             }
-          })
-        );
-        vids.forEach((vid) => {
-          let vidObj = vid.link.find((x) => x.url.includes(vid.size.h));
-          if (vidObj) {
-            vid.link = vidObj.url;
-          } else {
-            vidObj = vid.link.find((x) => x.bitrate === 2176000);
-            vid.link = vidObj.url;
-          }
+        }))
+        vidTemp.forEach(
+            vid => {
+                let vidObj = vid.link.find( x => x.url.includes(vid.size.h))
+                if (vidObj) {
+                    vid.link = vidObj.url
+                } else {
+                    vidObj = vid.link.find( x => x.bitrate === 2176000)
+                    vid.link = vidObj.url
+                }
+            }
+        )
+        vidTemp.forEach((c) => {
+            if (!vids.includes(c)) {
+                vids.push(c);
+            }
         });
-        vids = vids.map(JSON.stringify)
-        vids = new Set(vids)
-        vids = Array.from(vids).map(JSON.parse)
         console.log(vids);
-        setVideoData(vids);
-        setCurrentVideo(vids[0].link);
-        setSelectedVideo(vids[0].id);
+        setVideoData(vids)
+        setCurrentVideo(vids[0].link)
+        setSelectedVideo(vids[0].id)
       });
   }, [username]);
   useEffect(() => {

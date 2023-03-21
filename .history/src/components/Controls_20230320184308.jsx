@@ -29,6 +29,7 @@ const Controls = ({
 
   const prevVideo = () => {
     let prevVidId = options.indexOf(selected) - 1
+    console.log(selected,prevVidId);
     if (prevVidId < 0) {
         prevVidId = options.length - 1
     }
@@ -38,6 +39,7 @@ const Controls = ({
 
   const nextVideo = () => {
     let nextVidId = options.indexOf(selected) + 1
+    console.log(selected,nextVidId);
     if (nextVidId > options.length - 1) {
         nextVidId = 0
     }
