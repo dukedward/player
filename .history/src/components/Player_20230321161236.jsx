@@ -28,11 +28,11 @@ const Player = () => {
   };
   const updateTime = () => {
     //Get the current video time
-    const currentVideoTime = Math.floor(vidRef.currentTime);
+    const currentVideoTime = Math.floor(video.currentTime);
     //Get the percentage
-    const timePercentage = `${(currentVideoTime / vidRef.duration) * 100}%`;
+    const timePercentage = `${(currentVideoTime / video.duration) * 100}%`;
     //Output the current video time
-    // setTime(time, currentVideoTime);
+    setTime(time, currentVideoTime);
     //Set the slider progress to the percentage
     // progress.style.width = timePercentage;
     // thumb.style.left = timePercentage;
@@ -41,15 +41,7 @@ const Player = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
-    vidRef.current.addEventListener("loadeddata", () => {
-      if (isPlaying === true) {
-        vidRef.current.play();
-        setIsPlaying(true);
-      } else {
-        vidRef.current.pause();
-        setIsPlaying(false);
-      }
-    });
+    vidRef.addEventListener("loadeddata");
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
@@ -124,7 +116,10 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
+    let vidObj = videoData.find(({ id }) => id === selectedVideo);
+    setCurrentVideo(vidObj.link);
+    vidRef.current.load();
+    vidRef.addEventListener("loadeddata");
   }, [selectedVideo, currentVideo, videoData]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (

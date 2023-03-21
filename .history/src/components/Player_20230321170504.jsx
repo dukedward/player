@@ -14,6 +14,8 @@ const Player = () => {
   const [selectedVideo, setSelectedVideo] = useState(videoData[0].id);
   const [isPlaying, setIsPlaying] = useState(false);
   const [username, setUsername] = useState("dabofkya");
+  const [vidHeight, setVidHeight] = useState(null);
+  const [vidWidth, setVidWidth] = useState(null);
   const vidRef = useRef(null);
   const setTime = (output, input) => {
     //Calculate min from input
@@ -124,7 +126,18 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
+    let vidObj = videoData.find(({ id }) => id === selectedVideo);
+    setCurrentVideo(vidObj.link);
+    vidRef.current.load();
+    vidRef.current.addEventListener("loadeddata", () => {
+      if (isPlaying === true) {
+        vidRef.current.play();
+        setIsPlaying(true);
+      } else {
+        vidRef.current.pause();
+        setIsPlaying(false);
+      }
+    });
   }, [selectedVideo, currentVideo, videoData]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (
