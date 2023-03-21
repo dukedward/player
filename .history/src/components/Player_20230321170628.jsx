@@ -14,6 +14,8 @@ const Player = () => {
   const [selectedVideo, setSelectedVideo] = useState(videoData[0].id);
   const [isPlaying, setIsPlaying] = useState(false);
   const [username, setUsername] = useState("dabofkya");
+  const [vidHeight, setVidHeight] = useState(null);
+  const [vidWidth, setVidWidth] = useState(null);
   const vidRef = useRef(null);
   const setTime = (output, input) => {
     //Calculate min from input

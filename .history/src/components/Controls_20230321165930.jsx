@@ -33,7 +33,11 @@ const Controls = ({
         prevVidId = options.length - 1
     }
     setSelected(options[prevVidId])
-    loadVideo()
+    vidRef.current.addEventListener("loadeddata", () => {
+        if (isPlaying === true) {
+            vidRef.current.play()
+        }
+      })
   };
 
   const nextVideo = () => {
@@ -42,7 +46,15 @@ const Controls = ({
         nextVidId = 0
     }
     setSelected(options[nextVidId])
-    loadVideo()
+    vidRef.current.addEventListener("loadeddata", () => {
+        if (isPlaying === true) {
+            vidRef.current.play()
+        }
+      })
+  };
+
+  const handleDL = () => {
+    downloadFile();
   };
 
   return (
@@ -60,7 +72,7 @@ const Controls = ({
       </div>
       <div className="extra-controls">
         <button className="btn">
-          <FaDownload onClick={downloadFile} />
+          <FaDownload onClick={handleDL} />
         </button>
       </div>
     </div>

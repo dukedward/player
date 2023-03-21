@@ -15,41 +15,11 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [username, setUsername] = useState("dabofkya");
   const vidRef = useRef(null);
-  const setTime = (output, input) => {
-    //Calculate min from input
-    const min = Math.floor(input / 60);
-    //Calculate sec from input
-    const sec = Math.floor(input % 60);
-    if (sec < 10) {
-      output.innerHTML = `${min}:0${sec}`;
-    } else {
-      output.innerHTML = `${min}:${sec}`;
-    }
-  };
-  const updateTime = () => {
-    //Get the current video time
-    const currentVideoTime = Math.floor(vidRef.currentTime);
-    //Get the percentage
-    const timePercentage = `${(currentVideoTime / vidRef.duration) * 100}%`;
-    //Output the current video time
-    // setTime(time, currentVideoTime);
-    //Set the slider progress to the percentage
-    // progress.style.width = timePercentage;
-    // thumb.style.left = timePercentage;
-  };
   const loadVideo = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
-    vidRef.current.addEventListener("loadeddata", () => {
-      if (isPlaying === true) {
-        vidRef.current.play();
-        setIsPlaying(true);
-      } else {
-        vidRef.current.pause();
-        setIsPlaying(false);
-      }
-    });
+    vidRef.addEventListener('loadeddata')
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
@@ -124,8 +94,8 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
-  }, [selectedVideo, currentVideo, videoData]);
+    loadVideo();
+  }, [videoData, loadVideo]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (
     <div className="player">

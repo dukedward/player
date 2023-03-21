@@ -45,6 +45,10 @@ const Controls = ({
     loadVideo()
   };
 
+  const handleDL = () => {
+    downloadFile();
+  };
+
   return (
     <div className="control-container">
       <div className="controls">
@@ -60,7 +64,7 @@ const Controls = ({
       </div>
       <div className="extra-controls">
         <button className="btn">
-          <FaDownload onClick={downloadFile} />
+          <FaDownload onClick={handleDL} />
         </button>
       </div>
     </div>

@@ -41,15 +41,7 @@ const Player = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
-    vidRef.current.addEventListener("loadeddata", () => {
-      if (isPlaying === true) {
-        vidRef.current.play();
-        setIsPlaying(true);
-      } else {
-        vidRef.current.pause();
-        setIsPlaying(false);
-      }
-    });
+    vidRef.addEventListener("loadeddata");
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
@@ -124,7 +116,10 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
+    let vidObj = videoData.find(({ id }) => id === selectedVideo);
+    setCurrentVideo(vidObj.link);
+    vidRef.current.load();
+    vidRef.addEventListener("loadeddata");
   }, [selectedVideo, currentVideo, videoData]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (
