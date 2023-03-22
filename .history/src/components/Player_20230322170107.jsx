@@ -84,8 +84,10 @@ const Player = () => {
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
+    // console.log(vidObj)
     const url = vidObj.link;
-    const fileName = url.slice(url.lastIndexOf("/") + 1, url.lastIndexOf("?"));
+    const fileName = url.slice(url.lastIndexOf("/") + 1, url.length);
+    // console.log(fileName)
     axios
       .get(url, {
         responseType: "blob",
