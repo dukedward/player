@@ -155,8 +155,9 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
-  });
+    loadVideo();
+    vidRef.current.addEventListener("ended", nextVideo);
+  },[vidRef]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (
     <div className="player">

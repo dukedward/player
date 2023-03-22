@@ -155,8 +155,10 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
-  });
+    loadVideo();
+
+    vidRef.current.addEventListener('ended', nextVideo )
+  }, );
   const vidOptions = videoData.map((vid) => vid.id);
   return (
     <div className="player">
@@ -177,7 +179,6 @@ const Player = () => {
         currentVideo={currentVideo}
         vidAspect={vidAspect}
       />
-      {/* <Timeline className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
       <Controls
         loadVideo={loadVideo}
         playVideo={playVideo}
@@ -186,6 +187,7 @@ const Player = () => {
         downloadFile={downloadFile}
         isPlaying={isPlaying}
       />
+      {/* <Controls className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
     </div>
   );
 };

@@ -36,7 +36,6 @@ body {
 }
 
 .video-container {
-    aspect-ratio: 1024 / 1024;
     padding-top: 56.25%;
     position: relative;
     border: .8em #171a1d solid;
@@ -45,6 +44,7 @@ body {
 }
 
 .video-container video {
+    /* aspect-ratio: 1922 / 1922; */
     height: 100%;
     width: 100%;
     position: absolute;

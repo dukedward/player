@@ -14,9 +14,9 @@ const Player = () => {
   const [selectedVideo, setSelectedVideo] = useState(videoData[0].id);
   const [isPlaying, setIsPlaying] = useState(false);
   const [username, setUsername] = useState("dabofkya");
-  const [curHeight, setCurHeight] = useState(null);
-  const [curWidth, setCurWidth] = useState(null);
-  const [vidAspect, setVidAspect] = useState("1922 / 1922");
+  const [curHeight, setCurHeight] = useState(null)
+  const [curWidth, setCurWidth] = useState(null)
+  const [vidAspect, setVidAspect] = useState('1922 / 1922')
   const vidRef = useRef(null);
   const setTime = (output, input) => {
     //Calculate min from input
@@ -52,35 +52,10 @@ const Player = () => {
         vidRef.current.pause();
         setIsPlaying(false);
       }
-      setCurHeight(vidRef.current.videoHeight);
-      setCurWidth(vidRef.current.videoWidth);
-      setVidAspect(`${curWidth} / ${curHeight}`);
+      setCurHeight(vidRef.current.videoHeight)
+      setCurWidth(vidRef.current.videoWidth)
+      setVidAspect(`${curWidth} / ${curHeight}`)
     });
-  };
-  const playVideo = () => {
-    if (isPlaying === false) {
-      vidRef.current.play();
-      setIsPlaying(!isPlaying);
-    } else {
-      vidRef.current.pause();
-      setIsPlaying(!isPlaying);
-    }
-  };
-  const prevVideo = () => {
-    let prevVidId = vidOptions.indexOf(selectedVideo) - 1;
-    if (prevVidId < 0) {
-      prevVidId = vidOptions.length - 1;
-    }
-    setSelectedVideo(vidOptions[prevVidId]);
-    loadVideo();
-  };
-  const nextVideo = () => {
-    let nextVidId = vidOptions.indexOf(selectedVideo) + 1;
-    if (nextVidId > vidOptions.length - 1) {
-      nextVidId = 0;
-    }
-    setSelectedVideo(vidOptions[nextVidId]);
-    loadVideo();
   };
   const downloadFile = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
@@ -156,7 +131,7 @@ const Player = () => {
   }, [username]);
   useEffect(() => {
     loadVideo()
-  });
+  }, [selectedVideo, currentVideo, videoData, loadVideo]);
   const vidOptions = videoData.map((vid) => vid.id);
   return (
     <div className="player">
@@ -171,21 +146,18 @@ const Player = () => {
           loadVideo={loadVideo}
         />
       )}
-      <Video
-        nextVideo={nextVideo}
-        vidRef={vidRef}
-        currentVideo={currentVideo}
-        vidAspect={vidAspect}
-      />
-      {/* <Timeline className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
+      <Video vidRef={vidRef} currentVideo={currentVideo} vidAspect={vidAspect} />
       <Controls
+        options={vidOptions}
+        vidRef={vidRef}
         loadVideo={loadVideo}
-        playVideo={playVideo}
-        prevVideo={prevVideo}
-        nextVideo={nextVideo}
         downloadFile={downloadFile}
         isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        selected={selectedVideo}
+        setSelected={setSelectedVideo}
       />
+      {/* <Controls className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
     </div>
   );
 };

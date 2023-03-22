@@ -43,6 +43,7 @@ const Player = () => {
   const loadVideo = () => {
     let vidObj = videoData.find(({ id }) => id === selectedVideo);
     setCurrentVideo(vidObj.link);
+    vidRef.current.addEventListener("ended", nextVideo);
     vidRef.current.load();
     vidRef.current.addEventListener("loadeddata", () => {
       if (isPlaying === true) {
@@ -155,7 +156,7 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
+    loadVideo();
   });
   const vidOptions = videoData.map((vid) => vid.id);
   return (

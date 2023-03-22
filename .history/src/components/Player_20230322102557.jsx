@@ -52,6 +52,7 @@ const Player = () => {
         vidRef.current.pause();
         setIsPlaying(false);
       }
+      vidRef.current.addEventListener("ended", nextVideo);
       setCurHeight(vidRef.current.videoHeight);
       setCurWidth(vidRef.current.videoWidth);
       setVidAspect(`${curWidth} / ${curHeight}`);
@@ -155,7 +156,7 @@ const Player = () => {
       });
   }, [username]);
   useEffect(() => {
-    loadVideo()
+    loadVideo();
   });
   const vidOptions = videoData.map((vid) => vid.id);
   return (
