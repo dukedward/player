@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
     const [isPlaying, setIsPlayin] = useState(false)
@@ -11,6 +11,8 @@ const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
             setIsPlayin(!isPlaying)
         }
     }
+        vidRef.current.addEventListener('ended', nextVideo() )
+    
 
     return (
         <div className='video-container' ref={hoverRef} style={{ 'aspectRatio': {vidAspect}}}>
@@ -20,7 +22,6 @@ const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
                 ref={vidRef}
                 src={currentVideo}
                 onClick={playVideo}
-                onEnded={nextVideo}
             />
         </div>
     )

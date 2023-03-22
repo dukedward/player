@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
+const Video = ({ vidRef, hoverRef, currentVideo, vidAspect }) => {
     const [isPlaying, setIsPlayin] = useState(false)
     const playVideo = () => {
         if (isPlaying === false) {
@@ -11,7 +11,6 @@ const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
             setIsPlayin(!isPlaying)
         }
     }
-
     return (
         <div className='video-container' ref={hoverRef} style={{ 'aspectRatio': {vidAspect}}}>
             <video
@@ -20,7 +19,6 @@ const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
                 ref={vidRef}
                 src={currentVideo}
                 onClick={playVideo}
-                onEnded={nextVideo}
             />
         </div>
     )

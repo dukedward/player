@@ -20,7 +20,6 @@ const Video = ({ vidRef, hoverRef, currentVideo, vidAspect, nextVideo }) => {
                 ref={vidRef}
                 src={currentVideo}
                 onClick={playVideo}
-                onEnded={nextVideo}
             />
         </div>
     )
