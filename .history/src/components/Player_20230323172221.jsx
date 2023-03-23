@@ -150,12 +150,10 @@ const Player = () => {
             loadVideo={loadVideo}
           />
           <Video
-            playVideo={playVideo}
             nextVideo={nextVideo}
             vidRef={vidRef}
             currentVideo={currentVideo}
             vidAspect={vidAspect}
-            isPlaying={isPlaying}
           />
           {/* <Timeline className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
           <Controls
