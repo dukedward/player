@@ -41,6 +41,7 @@ const Player = () => {
 //     // thumb.style.left = timePercentage;
 //   };
   const loadVideo = () => {
+    console.log(selectedVideo);
     let vidObj = videoData.reduce((p, c) => {return p.id === selectedVideo ? p : c});
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
@@ -127,11 +128,13 @@ const Player = () => {
       .then((res) => fileDownload(res.data, fileName));
   };
   useEffect(() => {
+    console.log("Username Use Effect has run");
     if (username){
         fetchData();
     }
   }, [username]);
   useEffect(() => {
+    console.log("Video Use Effect has run");
     if (videoData && currentVideo && selectedVideo) {
         loadVideo()
     }
@@ -150,12 +153,10 @@ const Player = () => {
             loadVideo={loadVideo}
           />
           <Video
-            playVideo={playVideo}
             nextVideo={nextVideo}
             vidRef={vidRef}
             currentVideo={currentVideo}
             vidAspect={vidAspect}
-            isPlaying={isPlaying}
           />
           {/* <Timeline className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
           <Controls

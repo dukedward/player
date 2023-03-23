@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Controls from "./Controls";
 import Dropdown from "./Dropdown";
 import Video from "./Video";
@@ -18,29 +18,30 @@ const Player = () => {
   const [vidAspect, setVidAspect] = useState("1922 / 1922");
   const [vidOptions, setVidOptions] = useState();
   const vidRef = useRef(null);
-//   const setTime = (output, input) => {
-//     //Calculate min from input
-//     const min = Math.floor(input / 60);
-//     //Calculate sec from input
-//     const sec = Math.floor(input % 60);
-//     if (sec < 10) {
-//       output.innerHTML = `${min}:0${sec}`;
-//     } else {
-//       output.innerHTML = `${min}:${sec}`;
-//     }
-//   };
-//   const updateTime = () => {
-//     //Get the current video time
-//     const currentVideoTime = Math.floor(vidRef.currentTime);
-//     //Get the percentage
-//     const timePercentage = `${(currentVideoTime / vidRef.duration) * 100}%`;
-//     //Output the current video time
-//     // setTime(time, currentVideoTime);
-//     //Set the slider progress to the percentage
-//     // progress.style.width = timePercentage;
-//     // thumb.style.left = timePercentage;
-//   };
+  const setTime = (output, input) => {
+    //Calculate min from input
+    const min = Math.floor(input / 60);
+    //Calculate sec from input
+    const sec = Math.floor(input % 60);
+    if (sec < 10) {
+      output.innerHTML = `${min}:0${sec}`;
+    } else {
+      output.innerHTML = `${min}:${sec}`;
+    }
+  };
+  const updateTime = () => {
+    //Get the current video time
+    const currentVideoTime = Math.floor(vidRef.currentTime);
+    //Get the percentage
+    const timePercentage = `${(currentVideoTime / vidRef.duration) * 100}%`;
+    //Output the current video time
+    // setTime(time, currentVideoTime);
+    //Set the slider progress to the percentage
+    // progress.style.width = timePercentage;
+    // thumb.style.left = timePercentage;
+  };
   const loadVideo = () => {
+    console.log(selectedVideo);
     let vidObj = videoData.reduce((p, c) => {return p.id === selectedVideo ? p : c});
     setCurrentVideo(vidObj.link);
     vidRef.current.load();
@@ -79,6 +80,7 @@ const Player = () => {
                 setCurrentVideo(vids[0].link);
                 setSelectedVideo(vids[0].id);
                 setVidOptions(vids.map((vid) => vid.id));
+                loadVideo();
               }
             })
             .catch((error) => {
@@ -127,6 +129,7 @@ const Player = () => {
       .then((res) => fileDownload(res.data, fileName));
   };
   useEffect(() => {
+    console.log("Use Effect has run");
     if (username){
         fetchData();
     }
@@ -139,7 +142,7 @@ const Player = () => {
   return (
     <div className="player">
       <h1 className="video-title">{username}</h1>
-      <SearchBox setUsername={setUsername} />
+      <SearchBox fetchData={fetchData} setUsername={setUsername} />
       {videoData && (
         <>
           <Dropdown
@@ -150,12 +153,10 @@ const Player = () => {
             loadVideo={loadVideo}
           />
           <Video
-            playVideo={playVideo}
             nextVideo={nextVideo}
             vidRef={vidRef}
             currentVideo={currentVideo}
             vidAspect={vidAspect}
-            isPlaying={isPlaying}
           />
           {/* <Timeline className={isHovered ? 'show' : ''} vidRef={vidRef} /> */}
           <Controls
