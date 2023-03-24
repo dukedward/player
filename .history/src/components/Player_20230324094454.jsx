@@ -93,6 +93,8 @@ const Player = () => {
       });
   };
   const muteVideo = () => {
+    console.log(`isMuted: ${isMuted}`);
+    console.log(`vidRef: ${vidRef.current.muted}`);
     if (isMuted === true) {
         vidRef.current.muted = false
         setIsMuted(!isMuted)
@@ -136,19 +138,6 @@ const Player = () => {
       })
       .then((res) => fileDownload(res.data, fileName));
   };
-  const showFullscreen = () => {
-    if (vidRef.current.requestFullscreen) {
-        vidRef.current.requestFullscreen()
-    } else if (vidRef.current.msRequestFullScreen) {
-        vidRef.current.msRequestFullScreen()
-    } else if (vidRef.current.mozRequestFullScreen) {
-        vidRef.current.mozRequestFullScreen()
-    } else if (vidRef.current.webkitRequestFullScreen) {
-        vidRef.current.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
-    } else if (window.matchMedia("(max-width: 700px)").matches) {
-        vidRef.current.toggleAttribute('controls')
-    }
-  }
   useEffect(() => {
     if (username){
         fetchData();
@@ -186,10 +175,8 @@ const Player = () => {
             playVideo={playVideo}
             prevVideo={prevVideo}
             nextVideo={nextVideo}
-            showFullscreen={showFullscreen}
             downloadFile={downloadFile}
             isPlaying={isPlaying}
-            isMuted={isMuted}
           />
         </>
       )}
