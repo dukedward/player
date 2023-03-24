@@ -14,7 +14,6 @@ const Controls = ({
   downloadFile,
   isPlaying,
   isMuted,
-  muteVideo,
   playVideo,
   prevVideo,
   nextVideo,
@@ -37,7 +36,7 @@ const Controls = ({
         <button className="btn">
           <FaDownload onClick={downloadFile} />
         </button>
-        <button className="btn" onClick={muteVideo}>
+        <button className="btn">
           {isMuted ? <FaVolumeMute /> : <FaVolumeUp/>}
         </button>
         <button className="btn">
