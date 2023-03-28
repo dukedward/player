@@ -165,6 +165,7 @@ const Player = () => {
   return (
     <div className="player">
       {username && <h1 className="video-user">{username}</h1>}
+      {title && <h2 className="video-title">{title}</h2>}
       <SearchBox setUsername={setUsername} />
       {videoData && (
         <>
@@ -174,8 +175,7 @@ const Player = () => {
             setSelected={setSelectedVideo}
             setCurrentVideo={setCurrentVideo}
             loadVideo={loadVideo}
-            />
-          <h2 className="video-title">{title}</h2>
+          />
           <Video
             playVideo={playVideo}
             nextVideo={nextVideo}

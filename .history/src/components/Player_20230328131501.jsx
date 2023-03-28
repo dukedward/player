@@ -61,8 +61,8 @@ const Player = () => {
     });
   };
   const fetchData = async () => {
-    const userUrl = `https://tweetgrab.herokuapp.com/api/user?username=${username}`;
-    const url = `https://tweetgrab.herokuapp.com/api/user/vids?username=${username}`;
+    const userUrl = `http://localhost:8080/api/user?username=${username}`;
+    const url = `http://localhost:8080/api/user/vids?username=${username}`;
     await axios
       .get(userUrl, {
         responseType: "json",
