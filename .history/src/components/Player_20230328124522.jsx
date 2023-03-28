@@ -14,7 +14,6 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [username, setUsername] = useState("");
-  const [title, setTitle] = useState("");
   const [curHeight, setCurHeight] = useState(null);
   const [curWidth, setCurWidth] = useState(null);
   const [vidAspect, setVidAspect] = useState("1922 / 1922");
@@ -45,7 +44,6 @@ const Player = () => {
   const loadVideo = () => {
     let vidObj = videoData.reduce((p, c) => {return p.id === selectedVideo ? p : c});
     setCurrentVideo(vidObj.link);
-    setTitle(vidObj.text);
     vidRef.current.load();
     vidRef.current.addEventListener("loadeddata", () => {
       if (isPlaying === true) {
@@ -61,8 +59,8 @@ const Player = () => {
     });
   };
   const fetchData = async () => {
-    const userUrl = `https://tweetgrab.herokuapp.com/api/user?username=${username}`;
-    const url = `https://tweetgrab.herokuapp.com/api/user/vids?username=${username}`;
+    const userUrl = `http://localhost:8080/api/user?username=${username}`;
+    const url = `http://localhost:8080/api/user/vids?username=${username}`;
     await axios
       .get(userUrl, {
         responseType: "json",
@@ -79,7 +77,6 @@ const Player = () => {
                 vids = res.data;
                 console.log();
                 setVideoData(vids);
-                setTitle(vids[0].text);
                 setCurrentVideo(vids[0].link);
                 setSelectedVideo(vids[0].id);
                 setVidOptions(vids.map((vid) => vid.id));
@@ -164,7 +161,7 @@ const Player = () => {
   },[videoData, currentVideo, selectedVideo])
   return (
     <div className="player">
-      {username && <h1 className="video-user">{username}</h1>}
+      <h1 className="video-title">{username}</h1>
       <SearchBox setUsername={setUsername} />
       {videoData && (
         <>
@@ -174,8 +171,7 @@ const Player = () => {
             setSelected={setSelectedVideo}
             setCurrentVideo={setCurrentVideo}
             loadVideo={loadVideo}
-            />
-          <h2 className="video-title">{title}</h2>
+          />
           <Video
             playVideo={playVideo}
             nextVideo={nextVideo}
